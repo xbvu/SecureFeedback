@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Secure Web Application</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/bulma.css">
+    <style type="text/css">
+    /* Bulma footer doesn't stick to bottom otherwise */
+    html,
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    body>footer {
+        margin-top: auto;
+    }
+
+    /* CSS for star rating https://css-tricks.com/star-ratings/ */
+
+    .rate {
+        float: left;
+    }
+
+    .rate:not(:checked)>input {
+        position: absolute;
+        top: -9999px;
+    }
+
+    .rate:not(:checked)>label {
+        float: right;
+        width: 1em;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 30px;
+        color: #ccc;
+    }
+
+    .rate:not(:checked)>label:before {
+        content: '★ ';
+    }
+
+    .rate>input:checked~label {
+        color: #ffc700;
+    }
+
+    .rate:not(:checked)>label:hover,
+    .rate:not(:checked)>label:hover~label {
+        color: #deb217;
+    }
+
+    .rate>input:checked+label:hover,
+    .rate>input:checked+label:hover~label,
+    .rate>input:checked~label:hover,
+    .rate>input:checked~label:hover~label,
+    .rate>label:hover~input:checked~label {
+        color: #c59b08;
+    }
+
+    /* Modified from: https://github.com/mukulkant/Star-rating-using-pure-css */
+    </style>
+</head>
+
+<body>
+    <div class="modal" id="modal-id">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Leave feedback</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <form action="post" method="post" id="feedbackForm">
+                <section class="modal-card-body">
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Rating</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field" style="margin-top: -5px;">
+                                <div class="rate">
+                                    <input type="radio" id="star5" name="rate" value="5" />
+                                    <label for="star5" title="text">5 stars</label>
+                                    <input type="radio" id="star4" name="rate" value="4" />
+                                    <label for="star4" title="text">4 stars</label>
+                                    <input type="radio" id="star3" name="rate" value="3" />
+                                    <label for="star3" title="text">3 stars</label>
+                                    <input type="radio" id="star2" name="rate" value="2" />
+                                    <label for="star2" title="text">2 stars</label>
+                                    <input type="radio" id="star1" name="rate" value="1" />
+                                    <label for="star1" title="text">1 star</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">From</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control is-expanded has-icons-left">
+                                    <input class="input" type="text" name="name" maxlength="32" placeholder="Name (optional)">
+                                    <span class="icon is-small is-left">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="field">
+                                <p class="control is-expanded has-icons-left has-icons-right">
+                                    <input class="input" name="email" maxlength="128" placeholder="Email (optional)">
+                                    <span class="icon is-small is-left">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                    <span class="icon is-small is-right">
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Subject</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="text" name="subject" maxlength="32" placeholder="Feedback for item #1">
+                                </div>
+                                <!-- <p class="help is-danger">
+                                                This field is required
+                                            </p> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Comment</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    <textarea class="textarea" name="comment" maxlength="256" placeholder="Enter your opinion (optional)"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-success" type="submit">Submit feedback</button>
+                    <button class="button" type="button">Cancel</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-8-desktop is-offset-2-desktop">
+                        <h1 class="title is-2 is-spaced has-text-centered">
+                            Feedback
+                        </h1>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-desktop is-offset-2-desktop">
+                    <div class="content">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        <article class="message {{ category }}">
+                            <div class="message-header">
+                                <p>Attention</p>
+                            </div>
+                            <div class="message-body">
+                                {{ message }}
+                            </div>
+                        </article>
+                        {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+                        <span class="button modal-button is-fullwidth is-rounded is-success" data-target="modal-id">Leave feedback</span>
+                        <hr>
+                        <div class="columns">
+                            <div class="column is-one-fifth">
+                                <p class="heading">Total ratings</p>
+                                <p class="title is-2">{{ total_ratings }}</p>
+                                <p class="heading">Average rating</p>
+                                <p class="title is-1">{{ average_rating }}</p>
+                            </div>
+                            <div class="column">
+                                <div class="columns">
+                                    <div class="column is-one-fifth">
+                                        <div class="container has-text-right">
+                                            <p class="title is-5" style="margin-top: -3px;">5 stars</p>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <progress class="progress is-success" value="{{ rating_percentages['5'] }}" max="100">{{ rating_percentages['5'] }}%</progress>
+                                    </div>
+                                </div>
+                                <div class="columns">
+                                    <div class="column is-one-fifth">
+                                        <div class="container has-text-right">
+                                            <p class="title is-5" style="margin-top: -3px;">4 stars</p>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <progress class="progress is-link" value="{{ rating_percentages['4'] }}" max="100">{{ rating_percentages['4'] }}%</progress>
+                                    </div>
+                                </div>
+                                <div class="columns">
+                                    <div class="column is-one-fifth">
+                                        <div class="container has-text-right">
+                                            <p class="title is-5" style="margin-top: -3px;">3 stars</p>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <progress class="progress is-info" value="{{ rating_percentages['3'] }}" max="100">{{ rating_percentages['3'] }}%</progress>
+                                    </div>
+                                </div>
+                                <div class="columns">
+                                    <div class="column is-one-fifth">
+                                        <div class="container has-text-right">
+                                            <p class="title is-5" style="margin-top: -3px;">2 stars</p>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <progress class="progress is-warning" value="{{ rating_percentages['2'] }}" max="100">{{ rating_percentages['2'] }}%</progress>
+                                    </div>
+                                </div>
+                                <div class="columns">
+                                    <div class="column is-one-fifth">
+                                        <div class="container has-text-right">
+                                            <p class="title is-5" style="margin-top: -3px;">1 star</p>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <progress class="progress is-danger" value="{{ rating_percentages['1'] }}" max="100">{{ rating_percentages['1'] }}%</progress>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        {% for item in feedback %}
+                        <article class="media">
+                            <figure class="media-left" style="margin-right: 15px; margin-left: 0; margin-top: 5px;">
+                                <p class="image is-64x64">
+                                    <img src="/static/images/{{ item['rating']|string }}.png">
+                                </p>
+                            </figure>
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <strong>{{ item['subject'] if item['subject'] != None }}</strong> by
+                                        {% if item['email'] != None and item['email'] != '' %}
+                                        <small><a href="mailto:{{ item['email'] }}">{{ item['name'] }}</a></small>
+                                        {% else %}
+                                        <small>{{ item['name'] }}</small>
+                                        {% endif %}
+                                        <small>{{ item['time_ago'] }}</small>
+                                        <br>
+                                        {{ item['comment'] if item['subject'] != None }}
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer has-text-centered">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-desktop is-offset-2-desktop">
+                    <p>
+                        <small>
+                            Source available at <a href="https://github.com/xbvu/SecureFeedback">Github</a>
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript">
+    'use strict';
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // Modals
+
+        var rootEl = document.documentElement;
+        var $modals = getAll('.modal');
+        var $modalButtons = getAll('.modal-button');
+        var $modalCloses = getAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button');
+
+        if ($modalButtons.length > 0) {
+            $modalButtons.forEach(function($el) {
+                $el.addEventListener('click', function() {
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+                    rootEl.classList.add('is-clipped');
+                    $target.classList.add('is-active');
+                });
+            });
+        }
+
+        if ($modalCloses.length > 0) {
+            $modalCloses.forEach(function($el) {
+                $el.addEventListener('click', function() {
+                    closeModals();
+                });
+            });
+        }
+
+        document.addEventListener('keydown', function(event) {
+            var e = event || window.event;
+            if (e.keyCode === 27) {
+                closeModals();
+            }
+        });
+
+        function closeModals() {
+            rootEl.classList.remove('is-clipped');
+            $modals.forEach(function($el) {
+                $el.classList.remove('is-active');
+            });
+        }
+
+        // Functions
+
+        function getAll(selector) {
+            return Array.prototype.slice.call(document.querySelectorAll(selector), 0);
+        }
+
+    });
+    </script>
+</body>
+
+</html>

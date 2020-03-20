@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Secure Web Application</title>
+    <link rel="stylesheet" href="/static/css/bulma.css">
+    <style type="text/css">
+    /* Bulma footer doesn't stick to bottom otherwise */
+    html,
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    body>footer {
+        margin-top: auto;
+    }
+    </style>
+</head>
+
+<body>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-8-desktop is-offset-2-desktop">
+                        <h1 class="title is-2 is-spaced">
+                            Feedback Application
+                        </h1>
+                        <h2 class="subtitle is-4">
+                            A Secure (hopefully) Web application developed with <a href="https://flask.palletsprojects.com/en/1.1.x/"><b>Flask</b></a> and <a href="https://bulma.io/"><b>Bulma CSS</b></a>.
+                        </h2>
+                        <a class="button is-primary is-light is-fullwidth" href="/feedback/">Enter Feedback Page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-desktop is-offset-2-desktop">
+                    <div class="content">
+                        <h3>How to access it?</h3>
+                        <p>
+                            Go to the link below:
+                        </p>
+                        <ul>
+                            <li>
+                                <code><a href="/feedback/">Feedback Page</a></code>
+                            </li>
+                        </ul>
+                        <p>
+                            There you will be able to leave and view feedback!
+                        </p>
+                        <h3>How it's made?</h3>
+                        <p>
+                            Link to the Github page with source code:
+                        </p>
+                        <ul>
+                            <li>
+                                <code><a href="https://github.com/xbvu/SecureFeedback">@xbvu / SecureFeedbackApplication</a></code>
+                            </li>
+                        </ul>
+                        <h3>Open Source projects used:</h3>
+                        <ul>
+                            <li>
+                                Basic Flask project structure taken from my other project <code><a href="https://github.com/xbvu/TrenderBackend">@xbvu / TrenderBackend</a></code>
+                            </li>
+                            <li>
+                                HTML structure for <code>index.html</code> (this page) taken from <code><a href="https://github.com/jgthms/bulma-start/blob/master/index.html">@jgthms / bulma-start</a></code>
+                            </li>
+                            <li>
+                                Javascript for modals in <code>feedback.html</code> taken from <code><a href="https://siongui.github.io/2018/02/11/bulma-modal-with-javascript/">@siongui - JavaScript for Bulma Modal</a></code>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer has-text-centered">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-desktop is-offset-2-desktop">
+                    <p>
+                        <small>
+                            Source available at <a href="https://github.com/xbvu/SecureFeedback">Github</a>
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
